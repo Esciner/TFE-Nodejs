@@ -1,0 +1,6 @@
+extends ../layout.pug
+
+block content
+  script(src="/javascripts/plants/plant.js")
+  div(class="flex-fill d-flex flex-column" id="plants-list-container")
+    include plants-list.pug

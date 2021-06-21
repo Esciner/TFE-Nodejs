@@ -1,0 +1,6 @@
+if plants 
+  each plant in plants 
+    div(class="card plant-element")
+      div(class="card-body")
+        a(class="card-text" href="/plants/edit/" + plant._id)= plant.content
+        button(class="btn btn-danger mt-2 float-right" plantId=plant._id) X

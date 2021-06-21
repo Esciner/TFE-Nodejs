@@ -1,0 +1,9 @@
+extends ../layout
+
+block content
+    if plant
+        img(src=plant.image)
+        p= plant.name
+        p= plant.content
+    else
+        p Pas de résultat
