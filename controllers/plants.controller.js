@@ -117,36 +117,53 @@ exports.plantUpdate = [
     }
 ];
 
-exports.plantAnalyse = async (req, res) => {
-    let dataSet;
-    // spawn new child process to call the python script
-    // -s for the subject -i for the images directory -m for the mask directory
-    const python = spawn('python',
-        [
-            path.join(__dirname, '../python/test2.py'),
-            '-s', path.join(__dirname, '../python/dataset/images/image_daisy_0135.png'),
-            '-i', path.join(__dirname, '../python/dataset/images'),
-            '-m', path.join(__dirname, '../python/dataset/maskOrigin')
-        ]);
-    // collect data from script
-    python.stdout.on('data', function (data) {
-        console.log('Pipe data from python script ...');
-        dataSet = data.toString();
-    });
-    // in close event we are sure that stream is from child process is closed
-    python.on('close', async (code) => {
-        try {
-            console.log(`child process close all stdio with code ${code}`);
-            // Slice because python add /r/n so we remove for the search
-            const plant = await getPlantByName(dataSet.slice(0, -2));
-            res.render('plants/plant-analyse',
-                {
-                    plant,
-                    isAuthenticated: req.isAuthenticated(),
-                    currentUser: req.user
-                })
-        } catch (error) {
-            next(error);
+exports.plantAnalyse =
+    [
+        upload.single('plant-image'),
+        async (req, res, next) => {
+            let dataSet;
+            const image = `../public/images/plants/${req.file.filename}`;
+            // spawn new child process to call the python script
+            // -s for the subject -i for the images directory -m for the mask directory
+            const python = spawn('python',
+                [
+                    path.join(__dirname, '../python/test2.py'),
+                    '-s', path.join(__dirname, image),
+                    '-i', path.join(__dirname, '../python/dataset/images'),
+                    '-m', path.join(__dirname, '../python/dataset/maskOrigin')
+                ]);
+            // collect data from script
+            python.stdout.on('data', function (data) {
+                console.log('Pipe data from python script ...');
+                dataSet = data.toString();
+            });
+            // in close event we are sure that stream is from child process is closed
+            python.on('close', async (code) => {
+                try {
+                    console.log(`child process close all stdio with code ${code}`);
+                    // Slice because python add /r/n so we remove for the search
+                    //console log for testing if the model work
+                    console.log(dataSet.slice(0, -2));
+                    const plant = await getPlantByName(dataSet.slice(0, -2));
+                    //deleting the image for stockage space reason
+                    await fs.unlink(path.join(__dirname, image));
+                    res.render('plants/plant-analyse',
+                        {
+                            plant,
+                            isAuthenticated: req.isAuthenticated(),
+                            currentUser: req.user
+                        })
+                } catch (error) {
+                    next(error);
+                }
+            });
         }
-    });
-}
+    ]
+
+exports.plantAnalyserForm = (req, res, next) => {
+    res.render('plants/plant-analyse-form',
+        {
+            isAuthenticated: req.isAuthenticated(),
+            currentUser: req.user
+        });
+};
