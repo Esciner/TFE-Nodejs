@@ -18,3 +18,17 @@ block content
                                 li(class="text-danger")= error
                     div(class="w-100")
                         input(type="submit" value="Send" class="btn btn-primary ml-auto d-block")
+        div(class="flex-fill")
+            form(class="card" method="post" action= "/datasets/")
+                div(class="card-header") Ajouter Dataset
+                div(class="card-body")
+                    div(class="form-group")
+                        input(class="form-control" type="text" name="image" placeholder="Dataset image..." )
+                        input(class="form-control" type="text" name="mask" placeholder="Dataset mask..." )
+                        input(class="d-none" type="text" name="plant" value=plant && plant._id ? plant._id : "")
+                    if errors
+                        ul(class="my-2")
+                            each error in errors
+                                li(class="text-danger")= error
+                    div(class="w-100")
+                        input(type="submit" value="Send" class="btn btn-primary ml-auto d-block")

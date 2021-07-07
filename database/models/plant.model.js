@@ -20,6 +20,6 @@ const plantSchema = schema({
   }
 });
 
-const Plant = mongoose.model('plant', plantSchema);
+const Plant = mongoose.model('plants', plantSchema);
 
 module.exports = Plant;

@@ -1,0 +1,7 @@
+if datasets 
+    each dataset in datasets 
+        div(class="card plant-element")
+            div(class="card-body")
+                img(src=dataset.image)
+                img(src=dataset.mask)
+                button(class="btn btn-danger mt-2 float-right" datasetId=dataset._id) X

@@ -23,6 +23,6 @@ userSchema.methods.comparePassword = function(password) {
     return bcrypt.compare(password, this.local.password);
 };
 
-const User = mongoose.model('user', userSchema);
+const User = mongoose.model('users', userSchema);
 
 module.exports = User;

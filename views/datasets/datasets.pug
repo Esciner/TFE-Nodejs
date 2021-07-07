@@ -1,0 +1,6 @@
+extends ../layout.pug
+
+block content
+    script(src="/javascripts/datasets/datasets.js")
+    div(class="flex-fill d-flex flex-column" id="datasets-list-container")
+        include datasets-list.pug

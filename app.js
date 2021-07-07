@@ -28,6 +28,7 @@ app.use(morgan('short'));
 
 // Configuration du middleware pour les ressources statiques (images et autres)
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, '/python/dataset')));
 
 // Utilisations des middleware pour parser le json ou le urlencoded
 app.use(express.json());
