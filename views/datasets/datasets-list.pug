@@ -1,7 +1,16 @@
-if datasets 
-    each dataset in datasets 
-        div(class="card plant-element")
-            div(class="card-body")
-                img(src=dataset.image)
-                img(src=dataset.mask)
-                button(class="btn btn-danger mt-2 float-right" datasetId=dataset._id) X
+if datasets
+    div(class="photo-gallery")
+        div(class="container")
+            div(class="intro")
+                h2(class="text-center m-4")="Datasets"
+            div(class="row photos")
+                each dataset in datasets
+                    div(class="col-sm-6 col-md-4 col-lg-3 item")
+                        a(href=dataset.image data-lightbox="photos_" + dataset._id data-title=dataset.image)
+                            img(class="img-fluid" src=dataset.image)
+                            button(class="btn btn-danger mt-2 float-right btn-gallery-delete" datasetId=dataset._id) X
+                        a(class="d-none" href=dataset.mask data-lightbox="photos_" + dataset._id data-title=dataset.mask)
+                            img(class="img-fluid" src=dataset.mask)
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js")
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.bundle.min.js")
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.8.2/js/lightbox.min.js")
