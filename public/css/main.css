@@ -79,7 +79,12 @@
     padding-bottom:30px;
   }
 
-  /* Delete button in image gallery */
+  .plant-gallery-element {
+    width: 300px;
+    height: 300px !important;
+  }
+
+/* Delete button in image gallery */
 .btn-gallery-delete {
   position: absolute;
   top: -5%;

@@ -1,4 +1,5 @@
 const { getPlants, getPlantByName, createPlant, deletePlant, getPlant, updatePlant } = require('../queries/plants.queries');
+const { getDatasetsByPlant } = require('../queries/datasets.queries');
 
 //Pour des chemin corrects
 const path = require('path');
@@ -81,9 +82,11 @@ exports.plantEdit = async (req, res, next) => {
     try {
         const plantId = req.params.plantId;
         const plant = await getPlant(plantId);
+        const datasets = await getDatasetsByPlant(plantId);
         res.render('plants/plant-form',
             {
                 plant,
+                datasets,
                 isAuthenticated: req.isAuthenticated(),
                 currentUser: req.user
             });

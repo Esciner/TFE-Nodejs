@@ -3,6 +3,8 @@ extends ../layout
 block content
     script(src="/javascripts/plants/plant-form.js") 
     div(class="d-flex flex-row content mx-auto")
+        div(class="flex")
+            img(src=plant && plant._id ? plant.image : "/images/340.jpg" class="img-fluid" id="plant-image" width="300" height="300")
         div(class="flex-fill")
             form(class="card" method="post" action= plant && plant._id ? "/plants/update/" + plant._id : "/plants" enctype="multipart/form-data" id="form-container")
                 div(class="card-header") Écrire une plante
@@ -11,13 +13,13 @@ block content
                         input(class="form-control" type="text" name="name" placeholder="Plant name..." value=plant && plant._id ? plant.name : "")
                         textarea(class="form-control" name="content" placeholder="Plant description...")= plant && plant._id ? plant.content : ""
                         input(class="d-none" type="file", name="plant-image" id="input-plant-image")
-                        img(src=plant && plant._id ? plant.image : "/images/340.jpg" class="img-fluid" id="plant-image" width="300" height="300")
                     if errors
                         ul(class="my-2")
                             each error in errors
                                 li(class="text-danger")= error
                     div(class="w-100")
                         input(type="submit" value="Send" class="btn btn-primary ml-auto d-block")
+    div(class="d-flex flex-row content mx-auto")
         div(class="flex-fill")
             form(class="card" method="post" action= "/datasets/")
                 div(class="card-header") Ajouter Dataset
@@ -32,3 +34,4 @@ block content
                                 li(class="text-danger")= error
                     div(class="w-100")
                         input(type="submit" value="Send" class="btn btn-primary ml-auto d-block")
+    include ../datasets/datasets

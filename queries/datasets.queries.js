@@ -8,6 +8,10 @@ exports.getDataset = (datasetId) => {
     return Dataset.findById(datasetId).exec();
 };
 
+exports.getDatasetsByPlant = (plantId) => {
+    return Dataset.find({ plant: plantId }).exec();
+};
+
 exports.createDataset = (dataset) => {
     const newDataset = new Dataset(dataset);
     return newDataset.save();
