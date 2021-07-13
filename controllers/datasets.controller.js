@@ -4,9 +4,10 @@ const { getPlant } = require('../queries/plants.queries');
 exports.datasetCreate = async (req, res, next) => {
     try {
         const body = req.body;
+        const plantId = body.plant;
         await createDataset(body);
         console.log(body);
-        res.redirect('/plants');
+        res.redirect('/plants/edit/' + plantId);
     } catch (error) {
         const errors = Object.keys(error.errors).map(key => error.errors[key].message);
         const plant = await getPlant(plantId);

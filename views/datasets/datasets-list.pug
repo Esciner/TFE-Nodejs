@@ -2,7 +2,7 @@ if datasets && datasets.length !== 0
     div(class="photo-gallery")
         div(class="container")
             div(class="intro")
-                h2(class="text-center m-4")="Datasets"
+                h2(class="text-center m-4")=`${datasets.length} Datasets`
             div(class="row photos")
                 each dataset in datasets
                     div(class="col-sm-6 col-md-4 col-lg-3 item")

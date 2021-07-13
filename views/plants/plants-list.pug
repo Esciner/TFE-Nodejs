@@ -1,6 +1,10 @@
 if plants 
-  each plant in plants 
-    div(class="card plant-element")
-      div(class="card-body")
-        a(class="card-text" href="/plants/edit/" + plant._id)= plant.content
-        button(class="btn btn-danger mt-2 float-right" plantId=plant._id) X
+  each plant in plants
+    div(class="col-sm-6 col-md-4 col-lg-3")
+      div(class="bg-white rounded shadow-sm")
+        img(src=plant.image alt="" class="img-fluid card-img-top plant-gallery-element")
+        button(class="btn btn-danger mt-2 float-right btn-gallery-delete" plantId=plant._id) X
+        div(class="p-4")
+          h5
+            a(href="/plants/edit/" + plant._id class="text-dark stretched-link")=plant.name
+          p(class="small text-muted mb-0")= plant.content
